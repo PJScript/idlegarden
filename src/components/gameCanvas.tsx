@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import * as BABYLONMAT from "babylonjs-materials";
 import Loading from "../components/loading"
 
-const mainPageCenterCanvas = ({props}:any) => {
+const GameCanvasComponent = ({setIsLoading}:any) => {
   const canvasRef = useRef(null);
 
   let canvas: any;
@@ -91,7 +91,10 @@ const mainPageCenterCanvas = ({props}:any) => {
       engine = new BABYLON.Engine(canvas, true);
       scene = new BABYLON.Scene(engine);
 
-      setVisibilty(false)
+      setTimeout(()=>{
+        setIsLoading(false)
+
+      },2000)
       // canvas.focus();
       createScene();
 
@@ -125,21 +128,20 @@ const mainPageCenterCanvas = ({props}:any) => {
   }, []);
   return (
     <>
-      <Loading visibility={visibility}/>
-      <MainPageCanvas width={width} height={height} id="maincanvas" ref={canvasRef}></MainPageCanvas>
+      <GameCanvas width={width} height={height} id="maincanvas" ref={canvasRef}></GameCanvas>
     </>
   );
 };
 
-export default mainPageCenterCanvas;
+export default GameCanvasComponent
 
-const MainPageCanvas = styled.canvas.attrs(()=>{
+const GameCanvas = styled.canvas.attrs(()=>{
 
 })`
   position: absolute;
-  z-index: 0;
   top: 0;
   left: 0;
+  z-index:0 ;
   background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
   width: 100%;
   height: 100vh;
